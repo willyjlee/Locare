@@ -1,6 +1,8 @@
 package william_lee.labs.fun.LocationServer;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -11,8 +13,10 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -53,6 +57,8 @@ public class HomeActivity extends AppCompatActivity{
 
     private String INIT = "STARTED";
 
+    private String name;
+
     //TODO: add in onpause/onstop unregister location thingy locationManager.removeUpdates(LocationListener)
     //maybe this
 
@@ -73,9 +79,30 @@ public class HomeActivity extends AppCompatActivity{
         setContentView(R.layout.activity_home);
 
         sharedp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        if(!sharedp.contains("INIT")){
+        if(!sharedp.contains(INIT)){
             //TODO: add login activity
             //TODO: add to sharedprefs
+            LayoutInflater li = LayoutInflater.from(this);
+            View prompt = li.inflate(R.layout.signinprompt, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setView(prompt);
+
+            final EditText userInput = (EditText) prompt.findViewById(R.id.editTextDialogUserInput);
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    name = userInput.getText().toString();
+                                }
+                            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            SharedPreferences.Editor ed = sharedp.edit();
+            ed.putString(INIT, name);
+        }else{
+            name=sharedp.getString(INIT,"");
         }
 
         btnFine = (Button)findViewById(R.id.buttonFine);
@@ -139,7 +166,7 @@ public class HomeActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(currentLoc!=null){
                     Log.i("tag", "btn start");
-                    new adder().execute("FINE", null, locationString(currentLoc));
+                    new adder().execute(name, null, locationString(currentLoc));
                     Log.i("tag", "btn done");
                     Log.i("tag", locationString(currentLoc));
                 }else{
