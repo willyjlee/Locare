@@ -31,7 +31,7 @@
         <TextView android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_gravity="right"
-            android:id="@+id/statusView"
+            android:id="@+id/usernameView"
             android:gravity="center" />
 
     </LinearLayout>

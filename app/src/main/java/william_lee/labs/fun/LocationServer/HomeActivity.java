@@ -2,10 +2,12 @@ package william_lee.labs.fun.LocationServer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +49,10 @@ public class HomeActivity extends AppCompatActivity{
 
     private final String NO_LOC = "no Location available. Turn on Location services";
 
+    private SharedPreferences sharedp;
+
+    private String INIT = "STARTED";
+
     //TODO: add in onpause/onstop unregister location thingy locationManager.removeUpdates(LocationListener)
     //maybe this
 
@@ -65,6 +71,12 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        sharedp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(!sharedp.contains("INIT")){
+            //TODO: add login activity
+            //TODO: add to sharedprefs
+        }
 
         btnFine = (Button)findViewById(R.id.buttonFine);
         btnCustom = (Button)findViewById(R.id.buttonCustom);
@@ -175,8 +187,7 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     class adder extends AsyncTask<String, Void, String> {
-        private static final String addURL = "http://ip/android_location/add.php";
-
+        private static final String addURL = "http://45.79.108.155/sdhacks/add.php";
 
         private int addResult;
 
@@ -196,8 +207,11 @@ public class HomeActivity extends AppCompatActivity{
                     JSONObject add = new JSONObject();
                     try {
                         add.put("location", params[2]);
-                        add.put("datetime", SimpleDateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
-                        add.put("status", params[0].equals("custom") ? params[1] : params[0]);
+                        //add.put("datetime", SimpleDateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
+                        Calendar c = Calendar.getInstance();
+                        add.put("date", c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
+                        add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(Calendar.AM_PM==Calendar.PM ? "PM" : "AM"));
+                        add.put("username", params[0].equals("custom") ? params[1] : params[0]);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

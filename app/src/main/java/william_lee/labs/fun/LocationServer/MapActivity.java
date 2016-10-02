@@ -52,7 +52,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng latlng = new LatLng(i.getDoubleExtra("lat", 0), i.getDoubleExtra("long", 0));
         googleMap.addMarker(new MarkerOptions()
                 .position(latlng)
-                .title(i.getStringExtra("status")).snippet(i.getStringExtra("geoad")).snippet(i.getStringExtra("datetime")));
+                .title(i.getStringExtra("username")).snippet(i.getStringExtra("geoad")).snippet(i.getStringExtra("datetime")));
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(latlng, latlng), 10));
 

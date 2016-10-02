@@ -8,12 +8,12 @@ public class entry {
     private String loc; //lat long
     private String  geoAddress;
     private String datetime;
-    private String status; //null or SOS, fine
-    public entry(String loc, String geoAddress, String datetime, String status){
+    private String username;
+    public entry(String loc, String geoAddress, String datetime, String username){
         this.loc=loc;
         this.geoAddress=geoAddress;
         this.datetime=datetime;
-        this.status=status;
+        this.username=username;
     }
     public String getLoc(){
         return loc;
@@ -24,8 +24,8 @@ public class entry {
     public String getDatetime(){
         return datetime;
     }
-    public String getStatus(){
-        return status;
+    public String getUsername(){
+        return username;
     }
 
     public String[] getLatLong(){

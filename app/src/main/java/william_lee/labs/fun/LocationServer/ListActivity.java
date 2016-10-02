@@ -74,7 +74,7 @@ public class ListActivity extends AppCompatActivity {
                     i=i.putExtra("long", Double.parseDouble(arr[1]));
                     i=i.putExtra("geoad", clicked.getGeoAddress());
                     i=i.putExtra("datetime", clicked.getDatetime());
-                    i=i.putExtra("status", clicked.getStatus());
+                    i=i.putExtra("username", clicked.getUsername());
 
                     startActivity(i);
                 }
@@ -144,7 +144,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class getter extends AsyncTask<Void, Void, String> {
-        private static final String getURL = "http://ip/android_location/getall.php";
+        private static final String getURL = "http://45.79.108.155/sdhacks/getall.php";
 
 
         private int getResult;
@@ -198,8 +198,8 @@ public class ListActivity extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject j = arr.getJSONObject(i);
                             String locstr = j.getString("location");
-                            rev.add(new entry(locstr, getAddress(locstr), j.getString("datetime"), j.getString("status")));
-                            Log.i("all array", j.getString("location") + " " + j.getString("datetime") + " " + j.getString("status"));
+                            rev.add(new entry(locstr, getAddress(locstr), j.getString("datetime"), j.getString("username")));
+                            Log.i("all array", j.getString("location") + " " + j.getString("datetime") + " " + j.getString("username"));
                         }
                         for (int ind = rev.size() - 1; ind >= 0; ind--) {
                             all.add(rev.get(ind));

@@ -55,22 +55,15 @@ public class Adapter extends BaseAdapter {
 
         TextView loc = (TextView) view.findViewById(R.id.locView);
         TextView datetime = (TextView) view.findViewById(R.id.datetimeView);
-        TextView status = (TextView) view.findViewById(R.id.statusView);
+        TextView username = (TextView) view.findViewById(R.id.usernameView);
 
         String geoAddr=entry.getGeoAddress();
         loc.setText(geoAddr.length()>0 ? geoAddr : entry.getLoc());
 
         datetime.setText(entry.getDatetime());
 
-        String sta = entry.getStatus();
-        String col;
-        switch(sta){
-            case "SOS": col = "#AA0000"; break;
-            case "FINE": col = "#1EA805"; break;
-            default: col = "#000000";
-        }
-        status.setTextColor(Color.parseColor(col));
-        status.setText(sta);
+        String sta = entry.getUsername();
+        username.setText(sta);
         return view;
     }
 
