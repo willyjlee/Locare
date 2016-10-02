@@ -60,7 +60,7 @@ public class Adapter extends BaseAdapter {
         String geoAddr=entry.getGeoAddress();
         loc.setText(geoAddr.length()>0 ? geoAddr : entry.getLoc());
 
-        datetime.setText(entry.getDatetime());
+        datetime.setText(entry.getDate() + " " +entry.getTime());
 
         String sta = entry.getUsername();
         username.setText(sta);

@@ -7,12 +7,14 @@ public class entry {
 
     private String loc; //lat long
     private String  geoAddress;
-    private String datetime;
+    private String date;
+    private String time;
     private String username;
-    public entry(String loc, String geoAddress, String datetime, String username){
+    public entry(String loc, String geoAddress, String date, String time, String username){
         this.loc=loc;
         this.geoAddress=geoAddress;
-        this.datetime=datetime;
+        this.date=date;
+        this.time=time;
         this.username=username;
     }
     public String getLoc(){
@@ -21,8 +23,11 @@ public class entry {
     public String getGeoAddress() {
         return geoAddress;
     }
-    public String getDatetime(){
-        return datetime;
+    public String getDate(){
+        return date;
+    }
+    public String getTime() {
+        return time;
     }
     public String getUsername(){
         return username;

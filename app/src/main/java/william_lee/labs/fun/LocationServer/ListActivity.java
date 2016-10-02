@@ -73,7 +73,8 @@ public class ListActivity extends AppCompatActivity {
                     i=i.putExtra("lat", Double.parseDouble(arr[0]));
                     i=i.putExtra("long", Double.parseDouble(arr[1]));
                     i=i.putExtra("geoad", clicked.getGeoAddress());
-                    i=i.putExtra("datetime", clicked.getDatetime());
+                    i=i.putExtra("date", clicked.getDate());
+                    i=i.putExtra("time", clicked.getTime());
                     i=i.putExtra("username", clicked.getUsername());
 
                     startActivity(i);
@@ -198,8 +199,8 @@ public class ListActivity extends AppCompatActivity {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject j = arr.getJSONObject(i);
                             String locstr = j.getString("location");
-                            rev.add(new entry(locstr, getAddress(locstr), j.getString("datetime"), j.getString("username")));
-                            Log.i("all array", j.getString("location") + " " + j.getString("datetime") + " " + j.getString("username"));
+                            rev.add(new entry(locstr, getAddress(locstr), j.getString("date"), j.getString("time"), j.getString("username")));
+                            Log.i("all array", j.getString("location") + " " + j.getString("date") +j.getString("time")+ " " + j.getString("username"));
                         }
                         for (int ind = rev.size() - 1; ind >= 0; ind--) {
                             all.add(rev.get(ind));
