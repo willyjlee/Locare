@@ -58,7 +58,7 @@ public class Adapter extends BaseAdapter {
         TextView username = (TextView) view.findViewById(R.id.usernameView);
 
         String geoAddr=entry.getGeoAddress();
-        loc.setText(geoAddr.length()>0 ? geoAddr : entry.getLoc());
+        loc.setText(geoAddr==null||geoAddr.length()==0 ? entry.getLoc() : geoAddr);
 
         datetime.setText(entry.getDate() + " " +entry.getTime());
 

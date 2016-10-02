@@ -229,6 +229,9 @@ public class HomeActivity extends AppCompatActivity{
                     while((s=resIn.readLine())!=null){
                         build.append(s);
                     }
+
+                    Log.i("tag", "Build.TOSTRING: "+build.toString());
+
                     try{
                         JSONObject resobj = new JSONObject(build.toString());
                         //TODO: check if stringbuilder is error message.
