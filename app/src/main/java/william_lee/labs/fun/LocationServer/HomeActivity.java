@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -62,6 +63,12 @@ public class HomeActivity extends AppCompatActivity{
     //TODO: add in onpause/onstop unregister location thingy locationManager.removeUpdates(LocationListener)
     //maybe this
 
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -78,13 +85,14 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        sharedp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        sharedp = getApplicationContext().getSharedPreferences("userName", Context.MODE_PRIVATE);
         if(!sharedp.contains(INIT)){
+            Log.i("tag","doesn't contain");
             //TODO: add login activity
             //TODO: add to sharedprefs
             LayoutInflater li = LayoutInflater.from(this);
             View prompt = li.inflate(R.layout.signinprompt, null);
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setView(prompt);
 
             final EditText userInput = (EditText) prompt.findViewById(R.id.editTextDialogUserInput);
@@ -94,13 +102,17 @@ public class HomeActivity extends AppCompatActivity{
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     name = userInput.getText().toString();
+                                    Log.i("tag", name);
+
+                                    SharedPreferences.Editor ed = sharedp.edit();
+                                    ed.putString(INIT, name);
+                                    ed.commit();
+                                    Log.i("tag","committed");
                                 }
                             });
-
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-            SharedPreferences.Editor ed = sharedp.edit();
-            ed.putString(INIT, name);
+
         }else{
             name=sharedp.getString(INIT,"");
         }
@@ -236,8 +248,9 @@ public class HomeActivity extends AppCompatActivity{
                         add.put("location", params[2]);
                         //add.put("datetime", SimpleDateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
                         Calendar c = Calendar.getInstance();
+                        int amorpm=c.get(Calendar.AM_PM);
                         add.put("date", c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
-                        add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(Calendar.AM_PM==Calendar.PM ? "PM" : "AM"));
+                        add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(amorpm == Calendar.AM ? "PM" : "AM"));
                         add.put("username", params[0].equals("custom") ? params[1] : params[0]);
                     } catch (JSONException e) {
                         e.printStackTrace();
