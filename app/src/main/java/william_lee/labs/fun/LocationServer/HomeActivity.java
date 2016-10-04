@@ -250,7 +250,7 @@ public class HomeActivity extends AppCompatActivity{
                         Calendar c = Calendar.getInstance();
                         int amorpm=c.get(Calendar.AM_PM);
                         add.put("date", c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
-                        add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(amorpm == Calendar.AM ? "PM" : "AM"));
+                        add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(amorpm == Calendar.AM ? "AM" : "PM"));
                         add.put("username", params[0].equals("custom") ? params[1] : params[0]);
                     } catch (JSONException e) {
                         e.printStackTrace();
