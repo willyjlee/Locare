@@ -249,7 +249,7 @@ public class HomeActivity extends AppCompatActivity{
                         //add.put("datetime", SimpleDateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()));
                         Calendar c = Calendar.getInstance();
                         int amorpm=c.get(Calendar.AM_PM);
-                        add.put("date", c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
+                        add.put("date", (c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
                         add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(amorpm == Calendar.AM ? "AM" : "PM"));
                         add.put("username", params[0].equals("custom") ? params[1] : params[0]);
                     } catch (JSONException e) {
