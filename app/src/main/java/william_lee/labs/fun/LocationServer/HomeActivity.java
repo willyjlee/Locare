@@ -241,6 +241,7 @@ public class HomeActivity extends AppCompatActivity{
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.setRequestMethod("POST");
+
                     con.connect();
                     //TODO: add if can't even connect to url
                     JSONObject add = new JSONObject();
