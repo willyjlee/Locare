@@ -102,12 +102,16 @@ public class HomeActivity extends AppCompatActivity{
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     name = userInput.getText().toString();
-                                    Log.i("tag", name);
+                                    if(name==null || name.length()==0)
+                                        Toast.makeText(getApplicationContext(),"Please enter valid username",Toast.LENGTH_LONG).show();
+                                    else {
+                                        Log.i("tag", name);
 
-                                    SharedPreferences.Editor ed = sharedp.edit();
-                                    ed.putString(INIT, name);
-                                    ed.commit();
-                                    Log.i("tag","committed");
+                                        SharedPreferences.Editor ed = sharedp.edit();
+                                        ed.putString(INIT, name);
+                                        ed.commit();
+                                        Log.i("tag", "committed");
+                                    }
                                 }
                             });
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -226,7 +230,8 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     class adder extends AsyncTask<String, Void, String> {
-        private static final String addURL = "http://45.79.108.155/sdhacks/add.php";
+
+        private static final String addURL = "http://104.198.55.164/add.php";
 
         private int addResult;
 
@@ -252,6 +257,11 @@ public class HomeActivity extends AppCompatActivity{
                         int amorpm=c.get(Calendar.AM_PM);
                         add.put("date", (c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.YEAR));
                         add.put("time", c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+" "+(amorpm == Calendar.AM ? "AM" : "PM"));
+
+//                        if(params[0]==null || params[0].length()==0)
+//                            Toast.makeText(getApplicationContext(),"username empty",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),params[0],Toast.LENGTH_LONG).show();
+
                         add.put("username", params[0].equals("custom") ? params[1] : params[0]);
                     } catch (JSONException e) {
                         e.printStackTrace();

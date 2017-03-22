@@ -145,8 +145,8 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class getter extends AsyncTask<Void, Void, String> {
-        private static final String getURL = "http://45.79.108.155/sdhacks/getall.php";
 
+        private static final String getURL = "http://104.198.55.164/getall.php";
 
         private int getResult;
 
