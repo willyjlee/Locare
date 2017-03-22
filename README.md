@@ -7,5 +7,5 @@ Location sharing app by William Lee
 * Register new username for device that first runs app.
 
 ## Development
-* Android app sends JSON to remote Linode server
+* Android app sends JSON to Google Cloud Platform Compute Engine MySQL database.
 * PHP on server operates on MySQL database.
